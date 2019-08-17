@@ -1,0 +1,81 @@
+{
+    "kilogram": {
+        "title": "kilogram",
+        "ref": "self",
+        "type": "weight"
+    },
+    "kilo": {
+        "title": "kilo",
+        "ref": "kilogram",
+        "refType": "synonym"
+    },
+    "gram": {
+        "title": "gram",
+        "ref": "kilogram",
+        "modif": 1e-3
+    },
+    "liter": {
+        "title": "liter",
+        "ref": "self",
+        "type": "volume"
+    },
+    "milliliter": {
+        "title": "milliliter",
+        "ref": "liter",
+        "modif": 1e-3
+    },
+    "pack": {
+        "title": "pack",
+        "ref": "self",
+        "type": "quanitity"
+    },
+    "piece": {
+        "title": "piece",
+        "ref": "pack"
+    },
+    "bag": {
+        "title": "bag",
+        "ref": "pack"
+    },
+    "box": {
+        "title": "box",
+        "ref": "pack"
+    },
+    "basket": {
+        "title": "basket",
+        "ref": "pack"
+    },
+    "bottle": {
+        "title": "bottle",
+        "ref": "pack"
+    },
+    "can": {
+        "title": "can",
+        "ref": "pack"
+    },
+    "jar": {
+        "title": "jar",
+        "ref": "pack"
+    },
+    "crate": {
+        "title": "crate",
+        "ref": "pack"
+    },
+    "kg": {
+        "title": "kg",
+        "ref": "kilogram"
+    },
+    "l": {
+        "title": "l",
+        "ref": "liter",
+        "refType": "synonym"
+    },
+    "ml": {
+        "title": "ml",
+        "ref": "milliliter"
+    },
+    "g": {
+        "title": "g",
+        "ref": "gram"
+    }
+}

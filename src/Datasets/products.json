@@ -1,0 +1,27 @@
+{
+    "carrots": {
+        "title": "Carrots",
+        "defaultMetric": "kilogram",
+        "defaultQuantity": 1
+    },
+    "apples": {
+        "title": "Apples",
+        "defaultMetric": "kilogram",
+        "defaultQuantity": 1
+    },
+    "potatoes": {
+        "title": "Potatoes",
+        "defaultMetric": "kilogram",
+        "defaultQuantity": 1
+    },
+    "cheese": {
+        "title": "Potatoes",
+        "defaultMetric": "packs",
+        "defaultQuantity": 1
+    },
+    "beer": {
+        "title": "Beer",
+        "defaultMetric": "bottle",
+        "defaultQuantity": 1
+    }
+}
