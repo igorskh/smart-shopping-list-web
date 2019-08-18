@@ -3,11 +3,11 @@
 ReactJS-based shopping list with basic functionallity, string analysis and fuzzy search of products.
 
 ## Features
-- Basic functions - add, remove items
-- Basic natural language processing for detection of quantities and metrics
-- Fuzzy search of products in a database based on Levenshtein distance
-- Merging items of the same content
-- Animated graphical user interface
+  - Basic functions - add, remove items
+  - Basic natural language processing for detection of quantities and metrics
+  - Fuzzy search of products in a database based on Levenshtein distance
+  - Merging items of the same content
+  - Animated graphical user interface
 
 ## Implementation
 ### Project Structure
