@@ -1,0 +1,17 @@
+{
+    "apples": {
+        "title": "Apples",
+        "defaultMetric": "kilogram",
+        "defaultQuantity": 1
+    },
+    "potatoes": {
+        "title": "Potatoes",
+        "defaultMetric": "kilogram",
+        "defaultQuantity": 1
+    },
+    "sweet potatoes": {
+        "title": "Sweet Potatoes",
+        "defaultMetric": "kilogram",
+        "defaultQuantity": 1
+    }
+}
