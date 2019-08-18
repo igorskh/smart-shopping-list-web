@@ -1,5 +1,5 @@
 .container {
-  padding-top: 10pt;
+  padding-top: 20pt;
 }
 
 form {
@@ -8,9 +8,35 @@ form {
 }
 
 .inputField {
-  height: 40pt !important;
+  height: 40pt;
 }
 
 .suggestions {
+  position: absolute;
   width: 100%;
+  z-index: 100;
+}
+
+.cart-empty {
+  margin: 0 auto;
+}
+
+.cart-empty.hidden {
+  display: none;
+}
+
+.product-card {
+  cursor: pointer;
+}
+
+.btn {
+  margin-left: 5pt;
+}
+
+h2 {
+  padding-bottom: 12pt;
+}
+
+h4 {
+  font-size: 12pt;
 }
