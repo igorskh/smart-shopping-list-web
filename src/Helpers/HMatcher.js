@@ -5,7 +5,7 @@ import HStrings from "./HStrings";
 import quantityTypes from "../Datasets/quantity_types.json";
 import products from "../Datasets/products.json";
 
-const fuzzOptions = { cutoff: 85, scorer: fuzz.ratio };
+const fuzzOptions = { cutoff: 70, scorer: fuzz.ratio };
 
 function matchProduct(val, reverse = false) {
     let parts = val.split(" ");
@@ -16,14 +16,17 @@ function matchProduct(val, reverse = false) {
     let found = false;
     for (let i = 0; i < parts.length; i++) {
         const part = HStrings.sliceJoin(parts, i);
-        if (part === "") {
+        if (part.length ===  0) {
             continue;
         }
         const results = fuzz.extract(part, Object.keys(products), fuzzOptions);
         if (results.length > 0) {
-            val = results[0][0];
             found = true;
+            val = results[0][0];
             desc = HStrings.sliceJoin(parts, 0, i);
+            if (reverse) {
+                desc = desc.split(" ").reverse().join(" ");
+            }
             break;
         }
     }
@@ -35,10 +38,13 @@ function matchProduct(val, reverse = false) {
 }
 
 function matchQuantity(val) {
-    const re = /((\d+)\s{0,}([a-zA-Z]+))(?:\s|$)/gm;
+    const re = /((\d+)\s{0,}([a-zA-Z]*))(?:\s|$)/gm;
 
     let match;
     while ((match = re.exec(val)) != null) {
+        if (match[3].length === 0) {
+            continue;
+        }
         const results = fuzz.extract(match[3], Object.keys(quantityTypes), fuzzOptions);
         if (results.length > 0) {
             const quantity = match[2];
@@ -46,6 +52,12 @@ function matchQuantity(val) {
             const product = HStrings.substringParts(val, match.index, match.index + match[1].length + 1);
             return {
                 quantity, quantityType, product
+            };
+        } else {
+            return {
+                quantity: match[2],
+                quantityType: null,
+                product: HStrings.substringParts(val, match.index, match.index + match[2].length + 1)
             };
         }
     }
@@ -61,7 +73,7 @@ function parseProduct(inputValue) {
     let resQuantity = matchQuantity(val);
 
     if (resQuantity) {
-        quantity = resQuantity.quantity;
+        quantity = parseInt(resQuantity.quantity);
         quantityType = resQuantity.quantityType;
         val = resQuantity.product;
     }
@@ -70,18 +82,42 @@ function parseProduct(inputValue) {
     if (!resProduct.found) {
         resProduct = matchProduct(val, true);
     }
+    let productTitle = resProduct.val;
+    if (resProduct.found) {
+        productTitle = products[resProduct.val].title;
+        if (!quantityType) {
+            quantityType = products[resProduct.val].defaultMetric;
+        }
+        if (!quantity) {
+            quantity = parseInt(products[resProduct.val].defaultQuantity);
+        }
+    }
 
     return {
+        added: false,
         fullText: inputValue,
         quantity,
-        quantityType,
-        productTitle: resProduct.val,
+        quantityType: getRootQuantityType(quantityType),
+        productTitle,
+        productID: resProduct.val,
         productDesc: resProduct.desc
     };
 }
 
+function getRootQuantityType(quantityType) {
+    if (!quantityTypes.hasOwnProperty(quantityType)) {
+        return quantityType;
+    }
+    let quantityTypeObj = quantityTypes[quantityType];
+    if (quantityTypeObj.hasOwnProperty("refType") && quantityTypeObj.refType === "synonym") {
+        return getRootQuantityType(quantityTypeObj["ref"]);
+    }
+    return quantityType;
+}
+
 const HMatcher = {
-    parseProduct
+    parseProduct,
+    getRootQuantityType
 };
 
 export default HMatcher;
