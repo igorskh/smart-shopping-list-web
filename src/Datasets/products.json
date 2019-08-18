@@ -1,27 +1,37 @@
 {
     "carrots": {
-        "title": "Carrots",
+        "title": "🥕Carrots",
         "defaultMetric": "kilogram",
         "defaultQuantity": 1
     },
     "apples": {
-        "title": "Apples",
+        "title": "🍏Apples",
         "defaultMetric": "kilogram",
         "defaultQuantity": 1
     },
     "potatoes": {
-        "title": "Potatoes",
+        "title": "🥔Potatoes",
+        "defaultMetric": "kilogram",
+        "defaultQuantity": 1
+    },
+    "sweet potatoes": {
+        "title": "🍠Sweet Potatoes",
         "defaultMetric": "kilogram",
         "defaultQuantity": 1
     },
     "cheese": {
-        "title": "Potatoes",
-        "defaultMetric": "packs",
+        "title": "🧀Cheese",
+        "defaultMetric": "pack",
         "defaultQuantity": 1
     },
     "beer": {
-        "title": "Beer",
+        "title": "🍺Beer",
         "defaultMetric": "bottle",
+        "defaultQuantity": 1
+    },
+    "milk": {
+        "title": "🥛Milk",
+        "defaultMetric": "liters",
         "defaultQuantity": 1
     }
 }
