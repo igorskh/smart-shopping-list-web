@@ -18,7 +18,11 @@ class App extends React.Component {
       <Row>
         <Col></Col>
         <Col lg={6} md={8} sm={12}>
-          <h2>Smart Shopping List</h2>
+          <h2>
+            <img alt="logo" src="/logo192.png" width="40px"/>
+            Smart Shopping List
+          </h2>
+          <div className="header-bg"></div>
           <AddProductForm
             triggerItemAdd={(item) => this.productListChild.current.onItemAdd(item)} />
           <ProductList

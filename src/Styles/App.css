@@ -2,6 +2,17 @@
   padding-top: 20pt;
 }
 
+.header-bg {
+  width: 100%;
+  height: 110pt;
+  position: absolute;
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(57, 201, 1, 1) 0%, rgba(0, 255, 199, 1) 100%);
+  top: -20pt;
+  z-index: -1;
+  left: -2pt;
+  opacity: .5;
+}
+
 form {
   width: 100%;
   position: relative;
@@ -18,6 +29,7 @@ form {
 }
 
 .cart-empty {
+  padding-top: 30pt;
   margin: 0 auto;
 }
 
@@ -34,7 +46,11 @@ form {
 }
 
 h2 {
-  padding-bottom: 12pt;
+  padding-bottom: 5pt;
+}
+
+h2 > img {
+  margin-right: 10pt;
 }
 
 h4 {
