@@ -5,9 +5,14 @@ import HStrings from "./HStrings";
 import quantityTypes from "../Datasets/quantity_types.json";
 import products from "../Datasets/products.json";
 
-const fuzzOptions = { cutoff: 70, scorer: fuzz.ratio };
+const fuzzOptions = { cutoff: 80, scorer: fuzz.ratio };
 
-function matchProduct(val, reverse = false) {
+function matchProduct(val, reverse = false, customProducts = null) {
+    let useProducts = products;
+    if (customProducts) {
+        useProducts = customProducts;
+    }
+
     let parts = val.split(" ");
     if (reverse) {
         parts.reverse();
@@ -16,10 +21,10 @@ function matchProduct(val, reverse = false) {
     let found = false;
     for (let i = 0; i < parts.length; i++) {
         const part = HStrings.sliceJoin(parts, i);
-        if (part.length ===  0) {
+        if (part.length === 0) {
             continue;
         }
-        const results = fuzz.extract(part, Object.keys(products), fuzzOptions);
+        const results = fuzz.extract(part, Object.keys(useProducts), fuzzOptions);
         if (results.length > 0) {
             found = true;
             val = results[0][0];
@@ -64,7 +69,12 @@ function matchQuantity(val) {
     return null;
 }
 
-function parseProduct(inputValue) {
+function parseProduct(inputValue, customProducts = null) {
+    let useProducts = products;
+    if (customProducts) {
+        useProducts = customProducts;
+    }
+
     let val = HStrings.removeExtraWhitespaces(inputValue);
     val = HStrings.removePrepositions(val.split(" "));
 
@@ -84,12 +94,12 @@ function parseProduct(inputValue) {
     }
     let productTitle = resProduct.val;
     if (resProduct.found) {
-        productTitle = products[resProduct.val].title;
+        productTitle = useProducts[resProduct.val].title;
         if (!quantityType) {
-            quantityType = products[resProduct.val].defaultMetric;
+            quantityType = useProducts[resProduct.val].defaultMetric;
         }
         if (!quantity) {
-            quantity = parseInt(products[resProduct.val].defaultQuantity);
+            quantity = parseInt(useProducts[resProduct.val].defaultQuantity);
         }
     }
 
@@ -116,6 +126,8 @@ function getRootQuantityType(quantityType) {
 }
 
 const HMatcher = {
+    matchProduct,
+    matchQuantity,
     parseProduct,
     getRootQuantityType
 };
