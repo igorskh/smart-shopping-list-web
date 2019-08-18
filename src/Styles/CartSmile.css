@@ -1,0 +1,16 @@
+.cart-body {
+  width: 200pt;
+  height: 200pt;
+  background: url("/cart.png");
+  background-size: 100% 100%;
+}
+
+.cart-eye {
+  margin-top: 65pt;
+}
+
+.cart-mouth {
+  margin-left: -5pt;
+  margin-top: -20pt;
+  padding-right: 20pt;
+}
