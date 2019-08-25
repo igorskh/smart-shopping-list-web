@@ -1,0 +1,22 @@
+{
+    "beer": [
+        {
+            "title": "My Company's Beer",
+            "cost": 2
+        },
+        {
+            "title": "Yet Another Beer",
+            "cost": 4
+        }
+    ],
+    "milk": [
+        {
+            "title": "My Company's Milk",
+            "cost": 2
+        },
+        {
+            "title": "Yet Another Milk",
+            "cost": 4
+        }
+    ]
+}
