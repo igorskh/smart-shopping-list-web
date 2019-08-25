@@ -7,6 +7,14 @@ import products from "../Datasets/products.json";
 
 const fuzzOptions = { cutoff: 80, scorer: fuzz.ratio };
 
+function checkProductSynonym(productID, useProducts) {
+    if (useProducts[productID].hasOwnProperty("ref") && useProducts[productID].hasOwnProperty("refType")
+        && useProducts[productID]["refType"] === "synonym") {
+        return useProducts[productID]["ref"];
+    }
+    return productID;
+}
+
 function matchProduct(val, reverse = false, customProducts = null) {
     let useProducts = products;
     if (customProducts) {
@@ -34,6 +42,9 @@ function matchProduct(val, reverse = false, customProducts = null) {
             }
             break;
         }
+    }
+    if (found) {
+        val = checkProductSynonym(val, useProducts);
     }
     return {
         found,
