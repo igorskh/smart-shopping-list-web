@@ -1,8 +1,11 @@
 import React from "react";
 import posed, { PoseGroup } from "react-pose";
 
+import HSuggestions from "../Helpers/HSuggestions";
+
 import ProductItem from "../Components/ProductItem";
 import CartSmile from "../Components/CartSmile";
+import ModalWindow from "./ModalWindow";
 
 // Define animated variant of ProductItem
 const PosedProductItem = posed(ProductItem)({
@@ -32,7 +35,10 @@ class ProductList extends React.Component {
         mergedIndex: -1,
         pathIndexEyes: 1,
         pathIndexMouth: 2,
-        isEmpty: true
+        isEmpty: true,
+        isModalOpen: false,
+        selectedProduct: null,
+        suggestions: []
     }
 
     constructor(props) {
@@ -117,6 +123,25 @@ class ProductList extends React.Component {
         });
     }
 
+    onItemClick = (index) => {
+        const { items } = this.state;
+        const selectedProduct = items[index];
+        const suggestions = HSuggestions.getSuggestions(selectedProduct["productID"])
+        this.setState({
+            isModalOpen: true,
+            selectedProduct,
+            suggestions
+        });
+    }
+
+    onModalCloseClick = () => {
+        this.setState({ isModalOpen: false });
+    }
+
+    onModalSaveClick = () => {
+        this.setState({ isModalOpen: false });
+    }
+
     createCards = () => {
         const { items, mergedIndex } = this.state;
         const result = [];
@@ -127,6 +152,7 @@ class ProductList extends React.Component {
                 id={i}
                 pose={mergedIndex === i ? "merged" : "static"}
                 item={e}
+                onItemClick={this.onItemClick}
                 onItemPlus={this.onItemPlus}
                 onItemMinus={this.onItemMinus}
                 onItemRemove={this.onItemRemove} />);
@@ -136,7 +162,7 @@ class ProductList extends React.Component {
 
     render() {
         const cards = this.createCards();
-        const { isEmpty } = this.state;
+        const { isEmpty, isModalOpen, selectedProduct, suggestions } = this.state;
         return <>
             {
                 <center className={`cart-empty ${isEmpty && cards.length === 0 ? "" : "hidden"}`}>
@@ -144,6 +170,8 @@ class ProductList extends React.Component {
                     <h2>Shopping list is empty</h2>
                 </center>
             }
+            <ModalWindow suggestions={suggestions} show={isModalOpen}
+                handleClose={this.onModalCloseClick} selectedProduct={selectedProduct} />
             <PoseGroup>{cards}</PoseGroup>
         </>;
     }
