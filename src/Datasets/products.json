@@ -1,4 +1,16 @@
 {
+    "karroten": {
+        "ref": "carrots",
+        "refType": "synonym"
+    },
+    "apfel": {
+        "ref": "apples",
+        "refType": "synonym"
+    },
+    "kartoffel": {
+        "ref": "potatoes",
+        "refType": "synonym"
+    },
     "carrots": {
         "title": "🥕Carrots",
         "defaultMetric": "kilogram",
