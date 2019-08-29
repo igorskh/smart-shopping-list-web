@@ -1,3 +1,22 @@
+/*
+* Copyright 2019 Igor Kim
+* This file is part of Smart Shopping List Web.
+*
+* Smart Shopping List Web is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* any later version.
+
+* Smart Shopping List Web is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Smart Shopping List Web.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+
 import React from "react";
 import posed, { PoseGroup } from "react-pose";
 
@@ -46,6 +65,17 @@ class ProductList extends React.Component {
         this.cartSmileChild = React.createRef();
     }
 
+    componentDidMount() {
+        const storedItems = localStorage.getItem("items") || "[]";
+        const items = JSON.parse(storedItems);
+        const isEmpty = items.length === 0;
+        this.setState({ items, isEmpty });
+    }
+
+    saveItemsInLocalStorage() {
+        localStorage.setItem("items", JSON.stringify(this.state.items));
+    }
+
     tryMerge = (itemToAdd) => {
         let { items } = this.state;
 
@@ -78,7 +108,7 @@ class ProductList extends React.Component {
         if (mergedIndex < 0) {
             item.added = true;
             items.push(item);
-            this.setState({ items, isEmpty: false });
+            this.setState({ items, isEmpty: false }, () => this.saveItemsInLocalStorage());
         }
     }
 
@@ -97,7 +127,7 @@ class ProductList extends React.Component {
     onItemPlus = (index) => {
         const { items } = this.state;
         items[index].quantity++;
-        this.setState({ items });
+        this.setState({ items }, () => this.saveItemsInLocalStorage());
     }
 
     onItemMinus = (index) => {
@@ -106,13 +136,14 @@ class ProductList extends React.Component {
         if (items[index].quantity === 0) {
             return this.onItemRemove(index);
         }
-        this.setState({ items });
+        this.setState({ items }, () => this.saveItemsInLocalStorage());
     }
 
     onItemRemove = (index, timeout = 300) => {
         const { items } = this.state;
         items.splice(index, 1);
         this.setState({ items }, () => {
+            this.saveItemsInLocalStorage();
             if (items.length === 0) {
                 setTimeout(() => {
                     this.setState({ isEmpty: true }, () => {
@@ -126,7 +157,7 @@ class ProductList extends React.Component {
     onItemClick = (index) => {
         const { items } = this.state;
         const selectedProduct = items[index];
-        const suggestions = HSuggestions.getSuggestions(selectedProduct["productID"])
+        const suggestions = HSuggestions.getSuggestions(selectedProduct["productID"]);
         this.setState({
             isModalOpen: true,
             selectedProduct,
