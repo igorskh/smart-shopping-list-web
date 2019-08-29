@@ -30,6 +30,8 @@ Folder `src/Helpers` contains main logic of the app
 -   [HMatcher.js](src/Helpers/HMatcher.js) - implementation of fuzzy search in datasets
 -   [HStrings.js](src/Helpers/HStrings.js) - strings manipulations
 
+This app has datasets stored in JSON, which should not be the case in a real app, some more effecient way, such as sqlite or backend server should be used.
+
 ### Language Processing
 
 When user types anything in the input field in [Components/AddProductForm.js](src/Components/AddProductForm.js), the following process runs:
@@ -88,6 +90,13 @@ Run locally:
 npm run
 ```
 
+Run tests, tests are currently covering only functionality - Helper scripts.
+
+```bash
+npm test
+```
+
+
 Build for production:
 
 ```bash
@@ -95,6 +104,14 @@ npm run build
 ```
 
 Project can be deployed on [Zeit.co](https://zeit.co). Just use [CLI utility](https://github.com/zeit/now-cli) and run `now` to deploy.
+
+## TODO
+
+1. Autocomplete should suggest more than 1 entry
+2. Similar quantity types such as kg and g should be combined together.
+3. Suggestions should probably implemented using API
+4. Should be possible to edit quantities by typing amount
+5. ...
 
 ## Copyright and License
 
