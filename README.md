@@ -5,13 +5,16 @@
 
 ReactJS-based shopping list with basic functionallity, string analysis and fuzzy search of products. Check out a [live demo](https://inez.roundeasy.now.sh).
 
+If you have not received this project by clonining from git, check out the [repository](https://github.com/igorskh/smart-shopping-list-web).
+
 ## Features
 
--   Basic functions - add, remove items
+-   Basic functions - add, remove items, change quantity
 -   Basic natural language processing for detection of quantities and metrics
 -   Fuzzy search of products in a database based on Levenshtein distance
 -   Merging items of the same content
 -   Animated graphical user interface
+-   Save/Restore items to/from the browser local storage
 
 ## Implementation
 
@@ -37,6 +40,24 @@ When user types anything in the input field in [Components/AddProductForm.js](sr
 5. Search string in a database using fuzzy search, first all words, then removing first word and so on, `cold sweet milk` => `sweet milk` => `milk`. Until string is found in a database.
 6. Repeat procedure with a reversed string `milk sweet cold` => `sweet cold` => `cold`
 7. Use part which is found in a database as a product name `milk` and the rest as a description `cold sweet`
+
+### Synonyms Search
+
+Each entity, quantity type of a product has fields `ref` and `refType`.
+
+```json
+    "kartoffel": {
+        "ref": "potatoes",
+        "refType": "synonym"
+    },
+    "potatoes": {
+        "title": "🥔Potatoes",
+        "defaultMetric": "kilogram",
+        "defaultQuantity": 1
+    },
+```
+
+If product, for example `kartoffel` has `refType` = `synonym`, synonym search method will take all properties from the product specified in `ref`. This process repeats reccursively until `refType`, `ref` is missing or `refType` != `synonym`.
 
 ## Dependancies
 
@@ -72,3 +93,13 @@ Build for production:
 ```bash
 npm run build
 ```
+
+Project can be deployed on [Zeit.co](https://zeit.co). Just use [CLI utility](https://github.com/zeit/now-cli) and run `now` to deploy.
+
+## Copyright and License
+
+Copyright 2019 Igor Kim
+
+This project is licensed under GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
+
+[What does it mean?](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)#summary)
