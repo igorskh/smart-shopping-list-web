@@ -24,7 +24,6 @@ function sliceJoin(arr, start, end) {
     return arr.slice(start, end).join(" ");
 }
 
-
 function substringParts(val, start, end) {
     return `${val.substring(0, start)}${val.substring(end, val.length)}`;
 }
