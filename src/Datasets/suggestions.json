@@ -18,5 +18,55 @@
             "title": "Yet Another Milk",
             "cost": 4
         }
+    ],
+    "apples": [
+        {
+            "title": "Eve's Apples",
+            "cost": 2
+        },
+        {
+            "title": "Adam's Apples",
+            "cost": 4
+        }
+    ],
+    "Potatoes": [
+        {
+            "title": "Imported potatoes",
+            "cost": 2
+        },
+        {
+            "title": "Exported potatoes",
+            "cost": 4
+        }
+    ],
+    "cheese": [
+        {
+            "title": "My Company's cheese",
+            "cost": 2
+        },
+        {
+            "title": "Yet Another cheese",
+            "cost": 4
+        }
+    ],
+    "sweet potatoes": [
+        {
+            "title": "My Company's sweet potatoes",
+            "cost": 2
+        },
+        {
+            "title": "Yet Another sweet potatoes",
+            "cost": 4
+        }
+    ],
+    "carrots": [
+        {
+            "title": "My Company's carrots",
+            "cost": 2
+        },
+        {
+            "title": "Yet Another carrots",
+            "cost": 4
+        }
     ]
 }

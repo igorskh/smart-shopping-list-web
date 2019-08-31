@@ -7,6 +7,8 @@ ReactJS-based shopping list with basic functionallity, string analysis and fuzzy
 
 If you have not received this project by clonining from git, check out the [repository](https://github.com/igorskh/smart-shopping-list-web).
 
+![Screenshot](images/screenshot.png)
+
 ## Features
 
 -   Basic functions - add, remove items, change quantity
@@ -29,6 +31,7 @@ Folder `src/Helpers` contains main logic of the app
 
 -   [HMatcher.js](src/Helpers/HMatcher.js) - implementation of fuzzy search in datasets
 -   [HStrings.js](src/Helpers/HStrings.js) - strings manipulations
+-   [HSuggestions.js](src/Helpers/HSuggestions.js) - suggestions search
 
 This app has datasets stored in JSON, which should not be the case in a real app, some more effecient way, such as sqlite or backend server should be used.
 
@@ -60,6 +63,18 @@ Each entity, quantity type of a product has fields `ref` and `refType`.
 ```
 
 If product, for example `kartoffel` has `refType` = `synonym`, synonym search method will take all properties from the product specified in `ref`. This process repeats reccursively until `refType`, `ref` is missing or `refType` != `synonym`.
+
+### GUI description
+
+Main component is `App` class from `src/App.js`. All children components are located in `src/Components/`, CSS files are in `src/Styles/`.
+
+`App` has two children components `AddProductForm` and `ProductList` for displaying input field and current product list respectively.
+
+`ProductItem` component is a common component for suggestions and `ProductList`.
+
+`ModalWindow` component is a pop-up window with suggestions table.
+
+`CartSmile` is an animated SVG graphic for empty `ProductList`.
 
 ## Dependancies
 

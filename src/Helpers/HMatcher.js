@@ -25,24 +25,19 @@ import products from "../Datasets/products.json";
 
 const fuzzOptions = { cutoff: 80, scorer: fuzz.ratio };
 
-function checkProductSynonym(productID, useProducts) {
-    if (useProducts[productID].hasOwnProperty("ref") && useProducts[productID].hasOwnProperty("refType")
-        && useProducts[productID]["refType"] === "synonym") {
-        return useProducts[productID]["ref"];
-    }
-    return productID;
-}
-
+// Searches for a product in a dataset using Fuzzy search
 function matchProduct(val, reverse = false, customProducts = null) {
     let useProducts = products;
     if (customProducts) {
         useProducts = customProducts;
     }
-
+    
+    // Split string to words
     let parts = val.split(" ");
     if (reverse) {
         parts.reverse();
     }
+
     let desc = "";
     let found = false;
     for (let i = 0; i < parts.length; i++) {
@@ -51,13 +46,17 @@ function matchProduct(val, reverse = false, customProducts = null) {
             continue;
         }
         const results = fuzz.extract(part, Object.keys(useProducts), fuzzOptions);
+        // If fuzzy search returned at least one result
         if (results.length > 0) {
             found = true;
             val = results[0][0];
+            // Combine words
             desc = HStrings.sliceJoin(parts, 0, i);
+            // Restore words order if reversed search requested
             if (reverse) {
                 desc = desc.split(" ").reverse().join(" ");
             }
+            // TODO: return all results as suggestions
             break;
         }
     }
@@ -71,6 +70,7 @@ function matchProduct(val, reverse = false, customProducts = null) {
     };
 }
 
+// Searches for a quantity part
 function matchQuantity(val) {
     const re = /((\d+)\s{0,}([a-zA-Z]*))(?:\s|$)/gm;
 
@@ -98,6 +98,7 @@ function matchQuantity(val) {
     return null;
 }
 
+// Performs input string parsing
 function parseProduct(inputValue, customProducts = null) {
     let useProducts = products;
     if (customProducts) {
@@ -143,15 +144,27 @@ function parseProduct(inputValue, customProducts = null) {
     };
 }
 
-function getRootQuantityType(quantityType) {
-    if (!quantityTypes.hasOwnProperty(quantityType)) {
-        return quantityType;
+// Recursively does a synonym search of objectID in dataset
+function synonymSearch(objectID, dataset) {
+    if (!dataset.hasOwnProperty(objectID)) {
+        return objectID;
     }
-    let quantityTypeObj = quantityTypes[quantityType];
-    if (quantityTypeObj.hasOwnProperty("refType") && quantityTypeObj.refType === "synonym") {
-        return getRootQuantityType(quantityTypeObj["ref"]);
+
+    let productObj = dataset[objectID];
+    if (productObj.hasOwnProperty("ref") && productObj.hasOwnProperty("refType") && productObj["refType"] === "synonym") {
+        return checkProductSynonym(productObj["ref"], dataset);
     }
-    return quantityType;
+    return objectID;
+}
+
+// Recursively checks if productd productID is a synonym and returns a original productID if yes
+function checkProductSynonym(productID, useProducts) {
+    return synonymSearch(productID, useProducts);
+}
+
+// Recursively checks if productd quantityTypeID is a synonym and returns a original quantityTypeID if yes
+function getRootQuantityType(quantityTypeID) {
+    return synonymSearch(quantityTypeID, quantityTypes);
 }
 
 const HMatcher = {
