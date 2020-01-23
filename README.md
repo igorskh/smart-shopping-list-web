@@ -1,7 +1,8 @@
 # Smart Shopping List
-
 [![CircleCI](https://circleci.com/gh/igorskh/smart-shopping-list-web.svg?style=svg&circle-token=61cc396e40bd730a79ab0cb9246d2a3796270103)](https://circleci.com/gh/igorskh/smart-shopping-list-web)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/25f4d23c587a4274bf97bbd7666a4e0c)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=igorskh/smart-shopping-list-web&utm_campaign=Badge_Grade)
+
+A [winning submission](https://www.it-talents.de/blog/partnerunternehmen/igor-gewinnt-code-competition) to the [IT-Talents Code Competition](https://www.it-talents.de/foerderung/code-competition/edeka-digital-code-competition-08-2019).
 
 ReactJS-based shopping list with basic functionallity, string analysis and fuzzy search of products. Check out a [live demo](https://inez.roundeasy.now.sh).
 
